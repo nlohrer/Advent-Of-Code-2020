@@ -9,13 +9,12 @@ splitPolicy <- function(code) {
 }
 
 checkValidity <- function(policyVector, password) {
-  lowerBound <- as.numeric(policyVector[1])
-  upperBound <- as.numeric(policyVector[2])
+  firstPosition <- as.numeric(policyVector[1])
+  secondPosition <- as.numeric(policyVector[2])
   letter <- policyVector[3]
   
   splitPassword <- unlist(strsplit(password, ""))[-1]
-  letterAmount <- sum(splitPassword == letter)
-  if (lowerBound <= letterAmount & letterAmount <= upperBound) {
+  if ((splitPassword[firstPosition] == letter | splitPassword[secondPosition] == letter) & !(splitPassword[firstPosition] == letter & splitPassword[secondPosition] == letter)) {
     return(TRUE)
   } else {
     return(FALSE)
